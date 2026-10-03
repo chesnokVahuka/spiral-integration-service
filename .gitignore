@@ -1,0 +1,11 @@
+/.idea/
+/.vscode/
+/.DS_Store
+
+/vendor/
+/runtime/
+/.env
+/*.cache
+/rr
+/.rr*.yaml.local
+/protoc-gen-php-grpc*

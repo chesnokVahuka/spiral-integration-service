@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    container_name: spiral_app
+    working_dir: /var/www
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    command: ["rr", "serve", "-c", "/var/www/.rr.yaml"]
+    env_file:
+      - .env
+    environment:
+      COMPOSER_HOME: /tmp/composer
+    volumes:
+      - .:/var/www
+    ports:
+      - "${HTTP_PORT:-8080}:8080"
+    depends_on:
+      - buggregator
+
+  buggregator:
+    image: ghcr.io/buggregator/server:latest
+    container_name: spiral_buggregator
+    ports:
+      - "127.0.0.1:${BUGGREGATOR_UI_PORT:-8000}:8000"
+      - "127.0.0.1:${BUGGREGATOR_SMTP_PORT:-1025}:1025"
+      - "127.0.0.1:${BUGGREGATOR_VAR_DUMPER_PORT:-9912}:9912"
+      - "127.0.0.1:${BUGGREGATOR_MONOLOG_PORT:-9913}:9913"
