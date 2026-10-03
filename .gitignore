@@ -4,6 +4,8 @@
 
 /vendor/
 /runtime/
+/var/log/*
+!/var/log/.gitkeep
 /.env
 /*.cache
 /rr

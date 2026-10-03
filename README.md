@@ -25,6 +25,7 @@ curl http://localhost:8080/health
 Настраивается через `.env` (хост `buggregator` — имя сервиса в docker-сети):
 
 - `dump()` / `dd()` → `VAR_DUMPER_FORMAT=server`, `VAR_DUMPER_SERVER=buggregator:9912`
+- Monolog → файлы на хосте `var/log/app-YYYY-MM-DD.log` (ротация по дням, каталог смонтирован в compose)
 - Monolog → `MONOLOG_SOCKET_HOST=buggregator:9913` (см. `LoggingBootloader`); пустое значение отключает
 - Исключения (Sentry) → `SENTRY_DSN=http://sentry@buggregator:8000/1`
 - SMTP-ловушка → `buggregator:1025`

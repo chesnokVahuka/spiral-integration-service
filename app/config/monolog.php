@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 
@@ -22,15 +21,20 @@ return [
     ),
 
     /**
-     * Handlers. By default logs go to stderr (docker logs); Buggregator socket handler
-     * is attached in App\Application\Bootloader\LoggingBootloader.
+     * Handlers. Daily files on the host: var/log/app-YYYY-MM-DD.log (see docker-compose volume).
+     * Buggregator socket handler is attached in App\Application\Bootloader\LoggingBootloader.
      */
     'handlers' => [
         'default' => [
             [
-                'class' => StreamHandler::class,
+                'class' => 'log.rotate',
                 'options' => [
-                    'stream' => 'php://stderr',
+                    'filename' => env(
+                        'MONOLOG_FILE',
+                        directory('root') . 'var/log/app.log',
+                    ),
+                    'maxFiles' => (int) env('MONOLOG_MAX_FILES', 30),
+                    'level' => Logger::DEBUG,
                 ],
             ],
         ],

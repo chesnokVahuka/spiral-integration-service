@@ -7,6 +7,7 @@ export HOST_GID := $(shell id -g)
 
 init:
 	@test -f .env || cp .env.example .env
+	@mkdir -p var/log
 
 install: init
 	docker compose run --rm --no-deps app composer install
