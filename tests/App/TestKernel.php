@@ -12,4 +12,13 @@ use Spiral\Testing\Traits\TestableKernel;
 class TestKernel extends Kernel implements TestableKernelInterface
 {
     use TestableKernel;
+
+    #[\Override]
+    public function defineAppBootloaders(): array
+    {
+        return [
+            ...parent::defineAppBootloaders(),
+            Bootloader\TestingLockBootloader::class,
+        ];
+    }
 }

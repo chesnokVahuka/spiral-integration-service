@@ -9,6 +9,7 @@ use Spiral\Bootloader as Framework;
 use Spiral\Bootloader\Http\HttpBootloader;
 use Spiral\Debug\Bootloader\DumperBootloader;
 use Spiral\DotEnv\Bootloader\DotenvBootloader;
+use Spiral\Cache\Bootloader\CacheBootloader;
 use Spiral\Monolog\Bootloader\MonologBootloader;
 use Spiral\Nyholm\Bootloader\NyholmBootloader;
 use Spiral\RoadRunnerBridge\Bootloader as RoadRunnerBridge;
@@ -45,6 +46,9 @@ class Kernel extends \Spiral\Framework\Kernel
 
             // RoadRunner
             RoadRunnerBridge\HttpBootloader::class,
+            CacheBootloader::class,
+            RoadRunnerBridge\CacheBootloader::class,
+            RoadRunnerBridge\LockBootloader::class,
 
             // Core Services
             Framework\SnapshotsBootloader::class,
@@ -73,6 +77,8 @@ class Kernel extends \Spiral\Framework\Kernel
     #[\Override]
     public function defineAppBootloaders(): array
     {
-        return [];
+        return [
+            Bootloader\Bitrix24Bootloader::class,
+        ];
     }
 }

@@ -16,6 +16,9 @@
         <testsuite name="Feature">
             <directory suffix="Test.php">tests/Feature</directory>
         </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">tests/Unit</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
@@ -27,6 +30,8 @@
         <env name="MONOLOG_SOCKET_HOST" value="" />
         <env name="SENTRY_DSN" value="" />
         <env name="TOKENIZER_CACHE_TARGETS" value="true" />
+        <env name="BITRIX24_WEBHOOK_URL" value="https://example.bitrix24.ru/rest/1/test-webhook/" />
+        <env name="BITRIX24_RATE_LIMIT_STORAGE" value="array" />
         <ini name="error_reporting" value="-1"/>
         <ini name="memory_limit" value="-1"/>
     </php>

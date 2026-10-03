@@ -7,6 +7,11 @@ server:
   command: php app.php
   relay: pipes
 
+kv:
+  memory:
+    driver: memory
+    config: {}
+
 http:
   address: 0.0.0.0:8080
   middleware: [ gzip, static ]

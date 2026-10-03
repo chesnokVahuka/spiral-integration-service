@@ -20,6 +20,11 @@ curl http://localhost:8080/health
 | `app`         | PHP 8.4 + RoadRunner + Spiral               | http://localhost:8080    |
 | `buggregator` | Debug-сервер (dumps, logs, exceptions, SMTP) | http://localhost:8000    |
 
+### Bitrix24
+
+- `POST /webhooks/bitrix24/deals/update` — исходящий вебхук при изменении сделки; ID в `data[FIELDS][ID]` (query или тело `application/x-www-form-urlencoded`).
+- `App\Integration\Bitrix24\Bitrix24Connector` — исходящие REST-запросы через входящий вебхук (`BITRIX24_WEBHOOK_URL`), HTTP — Symfony HttpClient. Лимит **2 запроса в секунду** — состояние в RoadRunner KV (`BITRIX24_RATE_LIMIT_STORAGE`, по умолчанию `rr-memory` → плагин `kv` в `.rr.yaml`) и lock-плагин RR. Метод `listDealsById(int $dealId)` вызывает `crm.deal.list` с `filter[ID]`.
+
 ## Интеграция с Buggregator
 
 Настраивается через `.env` (хост `buggregator` — имя сервиса в docker-сети):

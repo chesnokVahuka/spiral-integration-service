@@ -11,7 +11,8 @@
         "spiral/nyholm-bridge": "^1.3",
         "spiral/roadrunner-bridge": "^4.0",
         "spiral/roadrunner-cli": "^2.5",
-        "spiral/sentry-bridge": "^2.3"
+        "spiral/sentry-bridge": "^2.3",
+        "symfony/http-client": "^8.1"
     },
     "require-dev": {
         "spiral/code-style": "^2.2",

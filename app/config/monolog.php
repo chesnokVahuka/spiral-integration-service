@@ -5,6 +5,11 @@ declare(strict_types=1);
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 
+$monologLogFile = env('MONOLOG_FILE') ?: 'var/log/app.log';
+if (!\str_starts_with((string) $monologLogFile, '/')) {
+    $monologLogFile = directory('root') . \ltrim((string) $monologLogFile, '/');
+}
+
 return [
     /**
      * Default logging channel.
@@ -29,10 +34,7 @@ return [
             [
                 'class' => 'log.rotate',
                 'options' => [
-                    'filename' => env(
-                        'MONOLOG_FILE',
-                        directory('root') . 'var/log/app.log',
-                    ),
+                    'filename' => $monologLogFile,
                     'maxFiles' => (int) env('MONOLOG_MAX_FILES', 30),
                     'level' => Logger::DEBUG,
                 ],
